@@ -1,23 +1,28 @@
 import NextAuth from 'next-auth';
-import GithubProvider from 'next-auth/providers/github';
 import { PrismaAdapter } from '@auth/prisma-adapter';
-import { prisma } from '@/lib/prisma';
+import GitHub from 'next-auth/providers/github';
+import prisma from '@/lib/prisma';
+// import authConfig from "./auth.config";
 
-export const { auth, handlers, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
+	adapter: PrismaAdapter(prisma),
 	session: {
 		strategy: 'jwt',
 	},
-	providers: [GithubProvider],
-	adapter: PrismaAdapter(prisma),
+	providers: [
+		GitHub({
+			clientId: process.env.AUTH_GITHUB_ID,
+			clientSecret: process.env.AUTH_GITHUB_SECRET,
+		}),
+	],
 	callbacks: {
 		async jwt({ token, user }) {
 			if (user) {
 				token.id = user.id;
-				token.name = user.name;
 			}
 			return token;
 		},
-		session({ token, session }) {
+		async session({ token, session }) {
 			if (session.user) {
 				session.user.id = token.id as string;
 				session.user.name = token.name as string;

@@ -1,3 +1,8 @@
+'use client';
+
+// import { signInUser } from '@/lib/auth';
+import { signIn } from 'next-auth/react';
+
 export default function SignInPage() {
 	return (
 		<div className="flex items-center justify-center bg-gray-100 min-h-[calc(100vh-4rem)] px-4">
@@ -9,7 +14,11 @@ export default function SignInPage() {
 				</div>
 
 				{/* GitHub Sign In Button */}
-				<button className="w-full flex items-center justify-center bg-gray-900 text-white hover:bg-gray-800 rounded-md p-2 text-sm">
+				<button
+					onClick={() => {
+						signIn('github', { callbackUrl: '/' });
+					}}
+					className="w-full flex items-center justify-center bg-gray-900 text-white hover:bg-gray-800 rounded-md p-2 text-sm">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="-2 -2 24 24"
@@ -22,15 +31,15 @@ export default function SignInPage() {
 					</svg>
 					<span>Continue with Github</span>
 				</button>
-            {/* 'or' Divider  */}
-                <div className="relative">
-                    <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div className="relative flex justify-center text-sm">
-                        <span className="bg-white px-2 text-gray-500">or</span>
-                    </div>
-                </div>
+				{/* 'or' Divider  */}
+				<div className="relative">
+					<div className="absolute inset-0 flex items-center">
+						<div className="w-full border-t border-gray-300"></div>
+					</div>
+					<div className="relative flex justify-center text-sm">
+						<span className="bg-white px-2 text-gray-500">or</span>
+					</div>
+				</div>
 				{/* Email Sign In */}
 				<div className="space-y-3 text-gray-600 hover:text-gray-500">
 					<input
