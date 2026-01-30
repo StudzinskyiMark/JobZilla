@@ -45,14 +45,14 @@ export default function SignInPage() {
 					<input
 						type="email"
 						placeholder="Email address"
-						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
 					/>
 					<input
 						type="password"
 						placeholder="Password"
-						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
 					/>
-					<button className="w-full bg-gray-100 hover:text-gray-600 hover:bg-gray-200 rounded-md p-2 text-sm">
+					<button className="w-full bg-blue-100 hover:text-gray-600 hover:bg-blue-200 rounded-md p-2 text-sm">
 						Sign in
 					</button>
 				</div>
