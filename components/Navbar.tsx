@@ -25,17 +25,17 @@ export default function Navbar() {
 							<div className="space-x-8 text-sm">
 								<Link
 									href="/jobs"
-									className="rounded-md hover:bg-blue-100 p-2">
+									className="rounded-md hover:bg-blue-200 p-2">
 									Browse Jobs
 								</Link>
 								<Link
 									href="/jobs/post"
-									className="rounded-md hover:bg-blue-100 p-2">
+									className="rounded-md hover:bg-blue-200 p-2">
 									Post a Job
 								</Link>
 								<Link
 									href="/dashboard"
-									className="rounded-md hover:bg-blue-100 p-2">
+									className="rounded-md hover:bg-blue-200 p-2">
 									Dashboard
 								</Link>
 							</div>
@@ -44,7 +44,7 @@ export default function Navbar() {
 									onClick={() => {
 										signOut({ callbackUrl: '/auth/sign-in' });
 									}}
-									className="rounded-md hover:bg-red-100 p-2">
+									className="rounded-md hover:bg-red-200 p-2">
 									Sign Out
 								</button>
 							</div>
@@ -54,19 +54,19 @@ export default function Navbar() {
 							<div>
 								<Link
 									href="/jobs"
-									className="rounded-md hover:bg-blue-100 p-2">
+									className="rounded-md hover:bg-blue-200 p-2">
 									Browse Jobs
 								</Link>
 							</div>
 							<div className="space-x-4 text-sm pr-8">
 								<Link
 									href="/auth/sign-in"
-									className="rounded-md hover:bg-blue-100 p-2">
+									className="rounded-md hover:bg-blue-200 p-2">
 									Sign In
 								</Link>
 								<Link
 									href="/auth/sign-up"
-									className="rounded-md hover:bg-blue-100 p-2">
+									className="rounded-md hover:bg-blue-200 p-2">
 									Sign Up
 								</Link>
 							</div>

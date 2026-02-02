@@ -52,7 +52,7 @@ export default function SignInPage() {
 						placeholder="Password"
 						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
 					/>
-					<button className="w-full bg-blue-100 hover:text-gray-600 hover:bg-blue-200 rounded-md p-2 text-sm">
+					<button className="w-full bg-blue-500 text-gray-200 hover:bg-blue-600 rounded-md p-2 text-sm">
 						Sign in
 					</button>
 				</div>
