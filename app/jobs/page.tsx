@@ -1,8 +1,53 @@
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
 
-export default async function JobsPage() {
+export default async function JobsPage({
+	searchParams,
+}: {
+	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+	const { jobKeyword, jobType, location } = await searchParams;
+
 	const jobs = await prisma.job.findMany({
+		where: {
+			AND: [
+				jobKeyword
+					? {
+							OR: [
+								{
+									title: {
+										contains: jobKeyword as string | undefined,
+										mode: 'insensitive',
+									},
+								},
+								{
+									company: {
+										contains: jobKeyword as string | undefined,
+										mode: 'insensitive',
+									},
+								},
+								{
+									description: {
+										contains: jobKeyword as string | undefined,
+										mode: 'insensitive',
+									},
+								},
+							],
+						}
+					: {},
+
+				jobType ? { type: jobType as string | undefined } : {},
+
+				location
+					? {
+							location: {
+								contains: location as string | undefined,
+								mode: 'insensitive',
+							},
+						}
+					: {},
+			],
+		},
 		orderBy: {
 			createdAt: 'desc',
 		},
@@ -20,12 +65,12 @@ export default async function JobsPage() {
 				<form className="grid gap-4 md:gap-3 lg:grid-cols-4 md:grid-cols-3 max-md:grid-cols-1 ">
 					<input
 						type="text"
-						name="q"
+						name="jobKeyword"
 						placeholder="Search jobs..."
 						className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 text-gray-900"
 					/>
 					<select
-						name="type"
+						name="jobType"
 						className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 text-gray-900">
 						<option value="">All Types</option>
 						<option value="Full-time">Full-time</option>
@@ -36,7 +81,7 @@ export default async function JobsPage() {
 					<input
 						type="text"
 						name="location"
-						placeholder="Location"
+						placeholder="jobLocation"
 						className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 text-gray-900"
 					/>
 
@@ -56,7 +101,7 @@ export default async function JobsPage() {
 						className="hover:transition-transform hover:scale-102">
 						<div
 							key={job.id}
-							className="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+							className="bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow max-h-max min-h-64">
 							<div className="flex justify-between items-start">
 								<div>
 									<h2 className="text-xl font-semibold text-gray-900 mb-2">

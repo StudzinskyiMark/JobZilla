@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import GitHub from 'next-auth/providers/github';
+import Google from 'next-auth/providers/google';
 import prisma from '@/lib/prisma';
 // import authConfig from "./auth.config";
 
@@ -9,10 +10,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 	session: {
 		strategy: 'jwt',
 	},
+
 	providers: [
 		GitHub({
 			clientId: process.env.AUTH_GITHUB_ID,
 			clientSecret: process.env.AUTH_GITHUB_SECRET,
+			allowDangerousEmailAccountLinking: true,
+		}),
+		Google({
+			clientId: process.env.AUTH_GOOGLE_ID,
+			clientSecret: process.env.AUTH_GOOGLE_SECRET,
+			allowDangerousEmailAccountLinking: true,
 		}),
 	],
 	callbacks: {
