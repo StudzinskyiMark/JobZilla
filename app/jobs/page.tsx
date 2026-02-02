@@ -57,7 +57,7 @@ export default async function JobsPage({
 	});
 
 	return (
-		<div className="space-y-8 mt-4 mx-4 max-md:mx-2">
+		<div className="space-y-8 mx-4 max-md:mx-2">
 			<div className="bg-white p-6 rounded-lg shadow-sm">
 				<h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
 					Find Jobs
@@ -81,19 +81,19 @@ export default async function JobsPage({
 					<input
 						type="text"
 						name="location"
-						placeholder="jobLocation"
+						placeholder="Enter location"
 						className="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 text-gray-900"
 					/>
 
 					<button
 						type="submit"
-						className="max-lg:col-span-3 max-md:col-span-1 bg-blue-500 text-gray-200 hover:bg-blue-600 px-4 py-2 rounded-md ">
+						className="max-lg:col-span-3 max-md:col-span-1 bg-blue-500 text-gray-50 hover:bg-blue-600 px-4 py-2 rounded-md ">
 						Search
 					</button>
 				</form>
 			</div>
 
-			<div className="grid gap-8 md:gap-4 lg:grid-cols-4 md:grid-cols-3 max-md:grid-cols-1">
+			<div className="grid gap-8 md:gap-4 lg:grid-cols-3 md:grid-cols-2 max-md:grid-cols-1">
 				{jobs.map((job) => (
 					<Link
 						href={`/jobs/${job.id}`}
@@ -117,7 +117,7 @@ export default async function JobsPage({
 									</p>
 								</div>
 								{job.salary && (
-									<span className="text-lg font-semibold text-gray-900">
+									<span className="text-md min-w-fit font-semibold text-gray-900">
 										{job.salary}
 									</span>
 								)}

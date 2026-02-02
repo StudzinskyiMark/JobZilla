@@ -32,7 +32,7 @@ export default function PostJobPage() {
 	};
 
 	return (
-		<div className="max-w-xl mx-auto p-8">
+		<div className="max-w-xl mx-auto p-8 bg-white rounded-lg shadow-md mb-4">
 			<h1 className="text-2xl font-bold text-gray-700 mb-6 text-center">
 				Post a Job
 			</h1>
@@ -133,7 +133,7 @@ export default function PostJobPage() {
 
 				<button
 					type="submit"
-					className="w-full  bg-blue-100 hover:bg-blue-200  px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed">
+					className="w-full  bg-blue-500 text-gray-50 hover:bg-blue-600  px-4 py-2 rounded-md disabled:opacity-50 disabled:cursor-not-allowed">
 					Post Job
 				</button>
 			</form>

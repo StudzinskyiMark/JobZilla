@@ -6,11 +6,7 @@ import { signOut, useSession } from 'next-auth/react';
 
 export default function Navbar() {
 	const { data: session } = useSession();
-	console.log("🚀 -------------------------------🚀");
-	console.log("🚀 - Navbar - session:", session);
-	console.log("🚀 -------------------------------🚀");
 
-   
 
 	return (
 		<nav className="bg-white shadow-md text-gray-700 hover:text-gray-800">

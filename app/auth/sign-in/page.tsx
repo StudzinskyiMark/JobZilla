@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 
 export default function SignInPage() {
 	return (
-		<div className="flex items-center justify-center bg-gray-100 min-h-[calc(100vh-4rem)] px-4">
+		<div className="flex items-center justify-center bg-gray-100 min-h-[calc(100vh-6rem)] px-4">
 			<div className="bg-white rounded-md shadow-md w-full max-w-md space-y-6 p-4">
 				{/* Header */}
 				<div className="text-center space-y-2">
