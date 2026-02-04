@@ -9,7 +9,7 @@ export default function Navbar() {
 
 
 	return (
-		<nav className="bg-white shadow-md text-gray-700 hover:text-gray-800">
+		<nav className="bg-white shadow-md text-gray-700 hover:text-gray-800 px-4">
 			<div className="container mx-auto px-2">
 				<div className="flex justify-between items-center py-2">
 					<Link href="/" className="flex items-center">
