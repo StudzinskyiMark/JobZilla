@@ -1,16 +1,65 @@
 'use client';
 
-// import { signInUser } from '@/lib/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
+import { SignUpSchema, TSignUpFormData } from '@/lib/zodTypes';
 
-export default function SignInPage() {
+export default function SignUpPage() {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+		reset,
+		setError,
+	} = useForm<TSignUpFormData>({
+		resolver: zodResolver(SignUpSchema),
+	});
+
+	const onSubmit = async (data: TSignUpFormData) => {
+		const response = await fetch('/api/auth/signUp', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(data),
+		});
+
+		const responseData = await response.json();
+
+		if (!response.ok) {
+			alert('Failed to register user');
+			return;
+		}
+
+		if (responseData?.errors) {
+			const errorMessages = responseData.errors;
+			if (errorMessages.email) {
+				setError('email', { type: 'server', message: errorMessages.email });
+			} else if (errorMessages.password) {
+				setError('password', {
+					type: 'server',
+					message: errorMessages.password,
+				});
+			} else if (errorMessages.confirmPassword) {
+				setError('confirmPassword', {
+					type: 'server',
+					message: errorMessages.confirmPassword,
+				});
+			} else {
+				alert('An unknown error occurred');
+			}
+		}
+		reset();
+	};
+
 	return (
-		<div className="flex items-center justify-center bg-gray-100 min-h-[calc(100vh-10rem)] px-4">
-			<div className="bg-white rounded-md shadow-md w-full max-w-md space-y-4 p-4">
+		<form
+			onSubmit={handleSubmit(onSubmit)}
+			className="flex items-center justify-center bg-gray-100 min-h-[calc(100vh-10rem)] px-4">
+			<div className="bg-white rounded-md shadow-md w-full max-w-md space-y-4 p-4 ">
 				{/* Header */}
 				<div className="text-center space-y-2">
 					<h1 className="text-3xl font-bold text-gray-900">JobZilla</h1>
-					<p className="text-gray-600 text-sm">Sign in to your account</p>
+					<p className="text-gray-600 text-sm">Create your account</p>
 				</div>
 
 				{/* GitHub Sign In Button */}
@@ -31,6 +80,7 @@ export default function SignInPage() {
 					</svg>
 					<span>Continue with Github</span>
 				</button>
+				{/* Google Sign In Button */}
 				<button
 					onClick={() => {
 						signIn('google', { callbackUrl: '/' });
@@ -70,31 +120,59 @@ export default function SignInPage() {
 						<span className="bg-white px-2 text-gray-500">or</span>
 					</div>
 				</div>
-				{/* Email Sign In */}
+				{/* Email Sign Up */}
 				<div className="space-y-3 text-gray-600 hover:text-gray-500">
 					<input
+						{...register('email')}
 						type="email"
 						placeholder="Email address"
 						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
 					/>
+					{errors.email && (
+						<p className="text-red-500 text-xs mt-1">
+							{`${errors.email.message}`}
+						</p>
+					)}
+
 					<input
+						{...register('password')}
 						type="password"
 						placeholder="Password"
 						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
 					/>
-					<button className="w-full bg-blue-500 text-gray-200 hover:bg-blue-600 rounded-md p-2 text-sm">
-						Sign in
+					{errors.password && (
+						<p className="text-red-500 text-xs mt-1">
+							{`${errors.password.message}`}
+						</p>
+					)}
+
+					<input
+						{...register('confirmPassword')}
+						type="password"
+						placeholder="Confirm password"
+						className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-200"
+					/>
+					{errors.confirmPassword && (
+						<p className="text-red-500 text-xs mt-1">
+							{`${errors.confirmPassword.message}`}
+						</p>
+					)}
+
+					<button
+						disabled={isSubmitting}
+						className="w-full bg-blue-500 text-gray-200 hover:bg-blue-600 rounded-md p-2 text-sm">
+						Sign up
 					</button>
 				</div>
 
 				{/* Footer Links */}
 				<div className="text-center text-xs text-gray-600 space-y-2">
 					<p>
-						{`Don't have an account? `}
+						{`Have an account? `}
 						<a
-							href="/auth/sign-up"
+							href="/auth/sign-in"
 							className="text-blue-600 hover:text-blue-700">
-							Sign up
+							Sign in
 						</a>
 					</p>
 					<p>
@@ -110,6 +188,6 @@ export default function SignInPage() {
 					</p>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 }
